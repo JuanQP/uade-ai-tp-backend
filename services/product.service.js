@@ -69,3 +69,17 @@ exports.getProductById = async function (id) {
         throw Error('Error while retrieving Product');
     }
 }
+
+exports.deleteProductsById = async function (ids) {
+
+    // Try Catch the awaited promise to handle the error
+    try {
+        var ProductResult = await Product.deleteMany({'_id': {$in: ids}});
+        return ProductResult;
+
+    } catch (e) {
+        // return a Error message describing the reason
+        console.log("error services",e)
+        throw Error('Error while retrieving Product');
+    }
+}

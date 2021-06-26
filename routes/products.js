@@ -7,5 +7,6 @@ router.get('/', ProductController.getProducts);
 router.get('/detail/:id', ProductController.getProductById);
 router.get('/latest', ProductController.getLatestProducts);
 router.get('/latest-sonido', ProductController.getLatestSonido);
+router.delete('/', ProductController.deleteProductsById);
 
 module.exports = router;

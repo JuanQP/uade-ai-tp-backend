@@ -56,3 +56,17 @@ exports.getProductById = async function (req, res, next) {
         return res.status(400).json({status: 400, message: e.message});
     }
 }
+
+exports.deleteProductsById = async function (req, res, next) {
+
+    // Check the existence of the query parameters, If doesn't exists assign a default value
+    const ids = req.body.ids;
+    try {
+        const results = await ProductService.deleteProductsById(ids);
+        // Return the Users list with the appropriate HTTP password Code and Message.
+        return res.status(200).json({status: 200, data: results, message: `Se borraron ${results.deletedCount} productos.`});
+    } catch (e) {
+        //Return an Error Response Message with Code and the Error Message.
+        return res.status(400).json({status: 400, message: e.message});
+    }
+}
