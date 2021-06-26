@@ -82,7 +82,7 @@ exports.updateUser = async function (req, res, next) {
     }
     try {
         var updatedUser = await UserService.updateUser(User)
-        return res.status(200).json({status: 200, data: updatedUser, message: "Succesfully Updated User"})
+        return res.status(200).json({status: 200, data: updatedUser, message: "Usuario modificado."})
     } catch (e) {
         return res.status(400).json({status: 400., message: e.message})
     }
@@ -96,6 +96,25 @@ exports.removeUser = async function (req, res, next) {
         res.status(200).send("Succesfully Deleted... ");
     } catch (e) {
         return res.status(400).json({status: 400, message: e.message})
+    }
+}
+
+exports.removeUsers = async function (req, res, next) {
+
+    // Check the existence of the query parameters, If doesn't exists assign a default value
+    const ids = req.body.ids;
+    try {
+        const results = await UserService.deleteUsersById(ids);
+        const message = results.deletedCount === 1 ? `Se borró 1 usuario` : `Se borraron ${results.deletedCount} usuarios`;
+        // Return the Users list with the appropriate HTTP password Code and Message.
+        return res.status(200).json({
+            status: 200,
+            data: results,
+            message,
+        });
+    } catch (e) {
+        //Return an Error Response Message with Code and the Error Message.
+        return res.status(400).json({status: 400, message: e.message});
     }
 }
 

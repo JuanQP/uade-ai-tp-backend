@@ -152,3 +152,17 @@ exports.loginUser = async function (user) {
     }
 
 }
+
+exports.deleteUsersById = async function (ids) {
+
+    // Try Catch the awaited promise to handle the error
+    try {
+        var UserResult = await User.deleteMany({'_id': {$in: ids}});
+        return UserResult;
+
+    } catch (e) {
+        // return a Error message describing the reason
+        console.log("error services",e)
+        throw Error('Error while retrieving User');
+    }
+}
