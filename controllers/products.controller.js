@@ -63,8 +63,13 @@ exports.deleteProductsById = async function (req, res, next) {
     const ids = req.body.ids;
     try {
         const results = await ProductService.deleteProductsById(ids);
+        const message = results.deletedCount === 1 ? `Se borró 1 producto` : `Se borraron ${results.deletedCount} productos`;
         // Return the Users list with the appropriate HTTP password Code and Message.
-        return res.status(200).json({status: 200, data: results, message: `Se borraron ${results.deletedCount} productos.`});
+        return res.status(200).json({
+            status: 200,
+            data: results,
+            message,
+        });
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         return res.status(400).json({status: 400, message: e.message});
@@ -83,7 +88,7 @@ exports.updateProduct = async function (req, res, next) {
     }
     try {
         var updatedProduct = await ProductService.updateProduct(Product);
-        return res.status(200).json({status: 200, data: updatedProduct, message: "Succesfully Updated Product"})
+        return res.status(200).json({status: 200, data: updatedProduct, message: "Producto modificado."})
     } catch (e) {
         return res.status(400).json({status: 400, message: e.message})
     }
