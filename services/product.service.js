@@ -108,3 +108,18 @@ exports.updateProduct = async function (product) {
         throw Error("And Error occured while updating the Product");
     }
 }
+
+exports.createProduct = async function (product) {
+
+    var newProduct = new Product(product);
+
+    try {
+        // Saving the Product
+        var savedProduct = await newProduct.save();
+        return savedProduct;
+    } catch (e) {
+        // return a Error message describing the reason
+        console.log(e)
+        throw Error("Error while Creating Product")
+    }
+}

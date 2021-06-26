@@ -9,5 +9,6 @@ router.get('/latest', ProductController.getLatestProducts);
 router.get('/latest-sonido', ProductController.getLatestSonido);
 router.put('/', ProductController.updateProduct);
 router.delete('/', ProductController.deleteProductsById);
+router.post('/', ProductController.createProduct);
 
 module.exports = router;

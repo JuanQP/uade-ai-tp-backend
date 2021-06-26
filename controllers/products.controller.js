@@ -88,3 +88,20 @@ exports.updateProduct = async function (req, res, next) {
         return res.status(400).json({status: 400, message: e.message})
     }
 }
+
+exports.createProduct = async function (req, res, next) {
+    // Req.Body contains the form submit values.
+    console.log("Creando producto...");
+    var Product = {
+        ...req.body
+    };
+    try {
+        // Calling the Service function with the new object from the Request Body
+        var createdProduct = await ProductService.createProduct(Product)
+        return res.status(201).json({status: 201, data: createdProduct, message: "Succesfully Created Product"})
+    } catch (e) {
+        //Return an Error Response Message with Code and the Error Message.
+        console.log(e)
+        return res.status(400).json({status: 400, message: "Product Creation was Unsuccesfull"})
+    }
+}
