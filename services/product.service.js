@@ -83,3 +83,28 @@ exports.deleteProductsById = async function (ids) {
         throw Error('Error while retrieving Product');
     }
 }
+
+exports.updateProduct = async function (product) {
+
+    var id = {_id: product._id};
+
+    try {
+        //Find the old Product Object by the Id
+        var oldProduct = await Product.findById(id);
+    } catch (e) {
+        throw Error("Error occured while Finding the Product")
+    }
+    // If no old Product Object exists return false
+    if (!oldProduct) {
+        return false;
+    }
+    //Edit the Product Object
+    try {
+        var savedProduct = await oldProduct.$set({...product});
+        savedProduct.save();
+        return savedProduct;
+    } catch (e) {
+        console.error(e);
+        throw Error("And Error occured while updating the Product");
+    }
+}
