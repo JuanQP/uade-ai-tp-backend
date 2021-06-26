@@ -1,4 +1,5 @@
 var OrderService = require('../services/order.service');
+var Product = require('../models/Product.model');
 var moment = require('moment');
 
 // Saving the context of this module inside the _the variable
@@ -36,8 +37,30 @@ exports.getOrderById = async function (req, res, next) {
 
 exports.createOrder = async function (req, res, next) {
     // Req.Body contains the form submit values.
-    console.log("Creando orden...", req.body)
+    console.log("Creando orden...");
     const buyOrder = req.body;
+    const errores = [];
+    let huboError = false;
+    // Nos quedamos con los ids de los productos seleccionados
+    const ids = buyOrder.products.map((p) => p.product._id);
+    // Me traigo los productos que tienen esos ids
+    const db_products = await Product.find({'_id': {$in: ids}});
+
+    // Checkeamos si hay suficiente stock para TODOS los productos
+    buyOrder.products.forEach((p) => {
+        const productoActual = db_products.find(db_product => db_product._id == p.product._id);
+        if (productoActual.stock < p.quantity) {
+            huboError = true;
+            errores.push(`El producto ${p.product.nombre} tiene ${productoActual.stock} unidades disponibles pero se intentó comprar ${p.quantity}.`);
+        }
+        // Actualizamos el stock pero todavía NO lo guardamos.
+        productoActual.stock -= p.quantity;
+    });
+    // Si hubo error en al menos uno, devolvemos mensaje de error con las cantidades inválidas
+    if(huboError) {
+        return res.status(400).json({status: 400, message: errores});
+    }
+    // Ahora si, creamos la orden...
     var newOrder = {
         buyOrder: buyOrder,
         cantidad: buyOrder.products.map(p => p.quantity).reduce((a,b) => (a+b), 0),
@@ -46,6 +69,8 @@ exports.createOrder = async function (req, res, next) {
         total: buyOrder.products.map(p => p.quantity * p.product.precio).reduce((a,b) => (a+b), 0),
     }
     try {
+        // Ahora sí updateamos los productos con el nuevo stock modificado.
+        db_products.forEach(dbp => dbp.save());
         // Calling the Service function with the new object from the Request Body
         var createdOrder = await OrderService.createOrder(newOrder)
         return res.status(201).json({createdOrder, message: "Succesfully Created Order"})
