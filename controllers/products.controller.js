@@ -7,10 +7,12 @@ _this = this;
 exports.getProducts = async function (req, res, next) {
 
     // Check the existence of the query parameters, If doesn't exists assign a default value
-    var page = req.query.page ? req.query.page : 1
-    var limit = req.query.limit ? req.query.limit : 10;
+    var pageNumber = req.query.page ? req.query.page : 1
+    var limitNumber = req.query.limit ? req.query.limit : 10;
+    const {page, limit, ordenamiento, ...queryParams} = req.query;
     try {
-        var Products = await ProductService.getProducts({}, page, limit)
+        var Products = await ProductService.getProducts(queryParams, ordenamiento, pageNumber, limitNumber)
+        // Requiere ordenamiento?
         // Return the Users list with the appropriate HTTP password Code and Message.
         return res.status(200).json({status: 200, data: Products, message: "Succesfully Products Recieved"});
     } catch (e) {
@@ -108,5 +110,18 @@ exports.createProduct = async function (req, res, next) {
         //Return an Error Response Message with Code and the Error Message.
         console.log(e)
         return res.status(400).json({status: 400, message: "Product Creation was Unsuccesfull"})
+    }
+}
+
+exports.getFilters = async function (req, res, next) {
+
+    // Check the existence of the query parameters, If doesn't exists assign a default value
+    try {
+        var Filters = await ProductService.getFilters();
+        // Return the Users list with the appropriate HTTP password Code and Message.
+        return res.status(200).json({status: 200, data: Filters, message: "Succesfully Filters Recieved"});
+    } catch (e) {
+        //Return an Error Response Message with Code and the Error Message.
+        return res.status(400).json({status: 400, message: e.message});
     }
 }

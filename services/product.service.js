@@ -7,12 +7,13 @@ var jwt = require('jsonwebtoken');
 _this = this
 
 // Async function to get the User List
-exports.getProducts = async function (query, page, limit) {
+exports.getProducts = async function (query, ordenamiento, page, limit) {
 
     // Options setup for the mongoose paginate
     var options = {
         page,
-        limit
+        limit,
+        sort: ordenamiento ? {precio: ordenamiento} : undefined,
     }
     // Try Catch the awaited promise to handle the error
     try {
@@ -121,5 +122,24 @@ exports.createProduct = async function (product) {
         // return a Error message describing the reason
         console.log(e)
         throw Error("Error while Creating Product")
+    }
+}
+
+exports.getFilters = async function () {
+
+    // Try Catch the awaited promise to handle the error
+    try {
+        var marcas = await Product.distinct('marca');
+        var categorias = await Product.distinct('categoria');
+        // Return the Userd list that was retured by the mongoose promise
+        return {
+            marcas,
+            categorias,
+        };
+
+    } catch (e) {
+        // return a Error message describing the reason
+        console.log("error services",e)
+        throw Error('Error while Paginating Users');
     }
 }
