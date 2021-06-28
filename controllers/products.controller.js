@@ -10,6 +10,9 @@ exports.getProducts = async function (req, res, next) {
     var pageNumber = req.query.page ? req.query.page : 1
     var limitNumber = req.query.limit ? req.query.limit : 10;
     const {page, limit, ordenamiento, ...queryParams} = req.query;
+    if(queryParams.nombre) {
+        queryParams.nombre = new RegExp(queryParams.nombre, "gi");
+    }
     try {
         var Products = await ProductService.getProducts(queryParams, ordenamiento, pageNumber, limitNumber)
         // Requiere ordenamiento?
