@@ -1,13 +1,15 @@
 var express = require('express');
 var router = express.Router();
 const UserController = require('../controllers/users.controller');
+var Authorization = require('../auth/authorization');
 
 /* GET users listing. */
-router.get('/', UserController.getUsers);
-router.get('/detail/:id', UserController.getUserById);
 router.post('/registration', UserController.createUser);
 router.post('/login', UserController.loginUser);
-router.put('/', UserController.updateUser);
-router.delete('/', UserController.removeUsers);
+// Rutas protegidas
+router.get('/', Authorization, UserController.getUsers);
+router.get('/detail/:id', Authorization, UserController.getUserById);
+router.put('/', Authorization, UserController.updateUser);
+router.delete('/', Authorization, UserController.removeUsers);
 
 module.exports = router;
