@@ -41,6 +41,7 @@ var OrderSchema = new mongoose.Schema({
     fechacompra: String,
     fechaentrega: String,
     total: Number,
+    estado: String,
 })
 
 OrderSchema.plugin(mongoosePaginate)

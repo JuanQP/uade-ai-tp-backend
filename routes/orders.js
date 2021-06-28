@@ -8,5 +8,6 @@ router.post('/', OrderController.createOrder);
 // Rutas protegidas
 router.get('/', Authorization, OrderController.getOrders);
 router.get('/detail/:id', Authorization, OrderController.getOrderById);
+router.post('/update-status', Authorization, OrderController.updateOrderStatus);
 
 module.exports = router;

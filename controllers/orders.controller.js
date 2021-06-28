@@ -80,3 +80,18 @@ exports.createOrder = async function (req, res, next) {
         return res.status(400).json({status: 400, message: "Order Creation was Unsuccesfull"})
     }
 }
+
+exports.updateOrderStatus = async function (req, res, next) {
+
+    // Id and status is necessary for the update
+    if (!req.body.ids || !req.body.estado) {
+        return res.status(400).json({status: 400., message: "No se especificó los IDs o el nuevo Estado."});
+    }
+
+    try {
+        var updatedOrders = await OrderService.updateOrderStatus(req.body.ids, req.body.estado)
+        return res.status(200).json({status: 200, message: `Se modificaron ${updatedOrders.n} órdenes con el nuevo estado ${req.body.estado}.`})
+    } catch (e) {
+        return res.status(400).json({status: 400., message: e.message})
+    }
+}
