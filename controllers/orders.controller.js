@@ -67,6 +67,7 @@ exports.createOrder = async function (req, res, next) {
         fechacompra: moment().format("DD/MM/YYYY"),
         fechaentrega: moment().add(2, "days").format("DD/MM/YYYY"),
         total: buyOrder.products.map(p => p.quantity * p.product.precio).reduce((a,b) => (a+b), 0),
+        estado: 'Pendiente',
     }
     try {
         // Ahora sí updateamos los productos con el nuevo stock modificado.
