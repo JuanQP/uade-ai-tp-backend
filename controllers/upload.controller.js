@@ -4,6 +4,13 @@ var fs = require('fs');
 var fs = bluebird.promisifyAll(require('fs'))
 var {join} = require('path');
 
+//configurar cloudinary
+var cloudinary = require('cloudinary');
+cloudinary.config({ 
+    cloud_name: 'dntepcqvn', //reemplazar con sus credenciales
+    api_key: '472924267197892', 
+    api_secret: 'c8ba8y9svKoABhyLPxvd5WfpzUw'
+});
 
 
 // Returns true if successful or false otherwise
@@ -100,7 +107,12 @@ exports.uploadFiles = async function (req, res, next) {
 				}
 			}
 		}
-		res.json({ok: true, msg: 'Files uploaded succesfully!', files: myUploadedFiles})
+		const imagenCloudinary = process.env.UPLOAD_DIR + myUploadedFiles[0];
+		cloudinary.uploader.upload(imagenCloudinary, function(result) { 
+			console.log("Resultado",result);
+			//urlImg=result.url;
+			res.json({ok: true, msg: 'Files uploaded succesfully!', url: result.url});
+		});
 	})
 }
 exports.uploadFilesImgUser = async function (req, res, next) {

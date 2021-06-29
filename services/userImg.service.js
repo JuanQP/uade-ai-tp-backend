@@ -89,11 +89,6 @@ exports.createUserImg = async function (userImg) {
         
         savedUserImg(newUserImg);
     });
-    
-    
-    
-    
-    
 }
 
 
