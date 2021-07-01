@@ -101,7 +101,6 @@ exports.updateProduct = async function (req, res, next) {
 
 exports.createProduct = async function (req, res, next) {
     // Req.Body contains the form submit values.
-    console.log("Creando producto...");
     var Product = {
         ...req.body
     };

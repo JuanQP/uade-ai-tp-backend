@@ -65,7 +65,6 @@ exports.getUsersByMail = async function (req, res, next) {
 
 exports.createUser = async function (req, res, next) {
     // Req.Body contains the form submit values.
-    console.log("Creando usuario...",req.body)
     var User = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -155,7 +154,6 @@ exports.removeUsers = async function (req, res, next) {
 
 exports.loginUser = async function (req, res, next) {
     // Req.Body contains the form submit values.
-    console.log("body",req.body)
     var User = {
         email: req.body.email,
         password: req.body.password
@@ -172,7 +170,6 @@ exports.loginUser = async function (req, res, next) {
 
 exports.guardarImagenUser = async function (req, res, next) {
 
-    console.log("ImgUser",req.body)
     // Id is necessary for the update
     if (!req.body.email) {
         return res.status(400).json({status: 400., message: "Mail must be present"})
@@ -192,7 +189,6 @@ exports.guardarImagenUser = async function (req, res, next) {
         return res.status(201).json({status: 201, message: "Imagen cargada"});
 
     } catch (e) {
-        console.log("error guardar imagen",e)
         return res.status(400).json({status: 400., message: e.message})
     }
 }
@@ -209,7 +205,6 @@ exports.getImagenUserByMail = async function (req, res, next) {
     try {
         var UsersImg = await UserImgService.getImagenesByUser(filtro, page, limit)
         // Return the Users list with the appropriate HTTP password Code and Message.
-        console.log("userByDni",UsersImg)
         if (UsersImg.total===0)
             return res.status(201).json({status: 201, data: UsersImg, message: "No existe Mail"});
         else

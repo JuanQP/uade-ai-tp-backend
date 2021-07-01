@@ -1,13 +1,13 @@
 var express = require('express');
 var router = express.Router();
 const OrderController = require('../controllers/orders.controller');
-var Authorization = require('../auth/authorization');
+var AdminAuthorization = require('../auth/admin_authorization');
 
-/* GET users listing. */
+// Rutas públicas
 router.post('/', OrderController.createOrder);
 // Rutas protegidas
-router.get('/', Authorization, OrderController.getOrders);
-router.get('/detail/:id', Authorization, OrderController.getOrderById);
-router.post('/update-status', Authorization, OrderController.updateOrderStatus);
+router.get('/', AdminAuthorization, OrderController.getOrders);
+router.get('/detail/:id', AdminAuthorization, OrderController.getOrderById);
+router.post('/update-status', AdminAuthorization, OrderController.updateOrderStatus);
 
 module.exports = router;

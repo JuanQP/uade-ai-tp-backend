@@ -52,7 +52,6 @@ exports.getOrderById = async function (req, res, next) {
 
 exports.createOrder = async function (req, res, next) {
     // Req.Body contains the form submit values.
-    console.log("Creando orden...");
     const buyOrder = req.body;
     const errores = [];
     let huboError = false;

@@ -100,7 +100,6 @@ exports.updateUser = async function (user) {
         return false;
     }
     //Edit the User Object
-    console.log(user);
     try {
         var savedUser = await oldUser.$set({...user});
         savedUser.save();
@@ -133,7 +132,6 @@ exports.loginUser = async function (user) {
     // Creating a new Mongoose Object by using the new keyword
     try {
         // Find the User
-        console.log("login:",user)
         var _details = await User.findOne({
             email: user.email
         });
@@ -143,6 +141,7 @@ exports.loginUser = async function (user) {
         var token = jwt.sign({
             id: _details._id,
             email: _details.email,
+            isAdmin: _details.isAdmin,
         }, process.env.SECRET, {
             expiresIn: 86400 // expires in 24 hours
         });
