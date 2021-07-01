@@ -20,6 +20,19 @@ exports.getUsers = async function (req, res, next) {
     }
 }
 
+exports.getActualUser = async function (req, res, next) {
+
+    // Check the existence of the query parameters, If doesn't exists assign a default value
+    try {
+        var User = await UserService.getUserById(req.userId);
+        // Return the Users list with the appropriate HTTP password Code and Message.
+        return res.status(200).json({status: 200, data: User, message: "Succesfully User Recieved"});
+    } catch (e) {
+        //Return an Error Response Message with Code and the Error Message.
+        return res.status(400).json({status: 400, message: e.message});
+    }
+}
+
 exports.getUserById = async function (req, res, next) {
 
     // Check the existence of the query parameters, If doesn't exists assign a default value
@@ -75,6 +88,27 @@ exports.updateUser = async function (req, res, next) {
     // Id is necessary for the update
     if (!req.body._id) {
         return res.status(400).json({status: 400., message: "ID must be present"})
+    }
+
+    var User = {
+        ...req.body,
+    }
+    try {
+        var updatedUser = await UserService.updateUser(User)
+        return res.status(200).json({status: 200, data: updatedUser, message: "Usuario modificado."})
+    } catch (e) {
+        return res.status(400).json({status: 400., message: e.message})
+    }
+}
+
+exports.updateActualUser = async function (req, res, next) {
+
+    // Id is necessary for the update
+    if (!req.body._id) {
+        return res.status(400).json({status: 400., message: "ID must be present"})
+    }
+    if(req.body._id != req.userId) {
+        return res.status(400).json({status: 400., message: "Solo podés actualizar los datos del usuario actual!"});
     }
 
     var User = {

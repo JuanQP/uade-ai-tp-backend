@@ -10,7 +10,8 @@ router.post('/login', UserController.loginUser);
 // Rutas protegidas
 router.get('/', Authorization, UserController.getUsers);
 router.get('/orders', Authorization, OrderController.getOrdersByUser);
-router.get('/detail/:id', Authorization, UserController.getUserById);
+router.get('/detail/', Authorization, UserController.getActualUser);
+router.put('/detail', Authorization, UserController.updateActualUser);
 router.put('/', Authorization, UserController.updateUser);
 router.delete('/', Authorization, UserController.removeUsers);
 
