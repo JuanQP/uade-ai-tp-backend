@@ -141,7 +141,8 @@ exports.loginUser = async function (user) {
         if (!passwordIsValid) throw Error("Invalid username/password")
 
         var token = jwt.sign({
-            id: _details._id
+            id: _details._id,
+            email: _details.email,
         }, process.env.SECRET, {
             expiresIn: 86400 // expires in 24 hours
         });
