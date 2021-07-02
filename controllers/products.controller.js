@@ -8,7 +8,7 @@ exports.getProducts = async function (req, res, next) {
 
     // Check the existence of the query parameters, If doesn't exists assign a default value
     var pageNumber = req.query.page ? req.query.page : 1
-    var limitNumber = req.query.limit ? req.query.limit : 10;
+    var limitNumber = req.query.limit ? req.query.limit : 8;
     const {page, limit, ordenamiento, ...queryParams} = req.query;
     if(queryParams.nombre) {
         queryParams.nombre = new RegExp(queryParams.nombre, "gi");
