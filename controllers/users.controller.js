@@ -1,5 +1,4 @@
 var UserService = require('../services/user.service');
-var UserImgService =require('../services/userImg.service');
 
 // Saving the context of this module inside the _the variable
 _this = this;
@@ -165,31 +164,6 @@ exports.loginUser = async function (req, res, next) {
     } catch (e) {
         //Return an Error Response Message with Code and the Error Message.
         return res.status(400).json({status: 400, message: "Invalid username or password"})
-    }
-}
-
-exports.guardarImagenUser = async function (req, res, next) {
-
-    // Id is necessary for the update
-    if (!req.body.email) {
-        return res.status(400).json({status: 400., message: "Mail must be present"})
-    }
-
-    let userImg = {
-        email: req.body.email,
-        nombreImagen : req.body.nombreImagen
-    }
-
-    try {
-        if (userImg.nombreImagen!=='')
-        {
-            var newUserImg = await UserImgService.createUserImg(userImg);
-        }
-
-        return res.status(201).json({status: 201, message: "Imagen cargada"});
-
-    } catch (e) {
-        return res.status(400).json({status: 400., message: e.message})
     }
 }
 
