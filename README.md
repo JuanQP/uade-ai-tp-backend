@@ -16,3 +16,9 @@ Usuario admin de prueba:
 
 * Usuario: mfaraday@uade.edu.ar
 * Password: asd123
+
+# Cómo correrlo
+
+```sh
+npx nodemon app.js
+```
