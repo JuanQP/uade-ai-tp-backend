@@ -1,24 +1,33 @@
 # UADE - Aplicaciones Interactivas - TP
 
-Trabajo práctico de tienda de artículos de PC.
+University project for a PC products store
 
-Estudiantes
+Members of the team:
 
-* **QUINTEROS PARADA**, Juan Ignacio
 * **FIORDILINO**, Martín Alberto
+* **QUINTEROS PARADA**, Juan Ignacio
 
-Usuario cliente de prueba:
+## I just want to see the app
 
-* Usuario: inewton@uade.edu.ar
-* Password: asd123
-
-Usuario admin de prueba:
-
-* Usuario: mfaraday@uade.edu.ar
-* Password: asd123
-
-# Cómo correrlo
+Everything settled up with:
 
 ```sh
-npx nodemon app.js
+docker-compose up
+```
+
+## Development
+
+In development is necessary to have a `DATABASE_URL` env variable set to connect to a MongoDB, then you can just run it with:
+
+```sh
+npm run dev
+```
+
+## Deploy
+
+In *production* you would need a running MongoDB, the env variable `DATABASE_URL` set and then:
+
+```sh
+npm run build
+npm start
 ```

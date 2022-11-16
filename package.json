@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "node dist/app.js",
+    "build": "npm run tsc",
     "dev": "nodemon app.ts",
     "tsc": "tsc"
   },

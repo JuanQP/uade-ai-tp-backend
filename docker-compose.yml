@@ -1,0 +1,26 @@
+version: '3.9'
+services:
+  db:
+    image: mongo:4.4-rc
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongo
+      - MONGO_INITDB_ROOT_PASSWORD=mongo
+    ports:
+      - "27017:27017"
+  web:
+    image: uade-ai-tp-backend:1.0.0
+    restart: always
+    build:
+      context: .
+    environment:
+      - SECRET=uade-2021-ai-1c
+      - DATABASE_URL=mongodb://mongo:mongo@db:27017
+      - PORT=4000
+      - UPLOAD_DIR=imagenes/
+      - NODE_ENV=Development
+    ports:
+      - "4000:4000"
+    depends_on:
+      # DB should be up before running backend
+      - db

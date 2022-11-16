@@ -47,13 +47,13 @@ mongoose.connect(process.env.DATABASE_URL, opts)
 .then(() => {
   console.log(`✅ Succesfully connected to MongoDB.`)
 })
-.catch((e: any) => {
+.catch((_e: any) => {
   console.log(`❌ Error connecting MongoDB.`),
-  console.log(e)
+  process.exit(1)
 })
 
 app.use(function (_req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:4000");
+  res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   next();
@@ -65,6 +65,3 @@ const port = process.env.PORT || 8080;
 app.listen(port,()=>{
     console.log(`✅ Server running on http://localhost:${port}`);
 });
-
-
-module.exports = app;
