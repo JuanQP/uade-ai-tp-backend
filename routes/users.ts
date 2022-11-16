@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
-const UserController = require('../controllers/users.controller');
-const OrderController = require('../controllers/orders.controller');
-var Authorization = require('../auth/authorization');
-var AdminAuthorization = require('../auth/admin_authorization');
+import express from 'express'
+import AdminAuthorization from '../auth/admin_authorization'
+import Authorization from '../auth/authorization'
+import * as OrderController from '../controllers/orders.controller'
+import * as UserController from '../controllers/users.controller'
+const router = express.Router();
 
 // Rutas públicas
 router.post('/registration', UserController.createUser);
@@ -17,4 +17,4 @@ router.get('/', AdminAuthorization, UserController.getUsers);
 router.put('/', AdminAuthorization, UserController.updateUser);
 router.delete('/', AdminAuthorization, UserController.removeUsers);
 
-module.exports = router;
+export default router;

@@ -1,22 +1,18 @@
 // Gettign the Newly created Mongoose Model we just created
-var Order = require('../models/Order.model');
-
-// Saving the context of this module inside the _the variable
-_this = this
+import Order from '../models/Order.model';
 
 // Async function to get the User List
-exports.getOrders = async function (query, page, limit) {
+export async function getOrders (query: Object, page: number, limit: number) {
 
     // Options setup for the mongoose paginate
-    var options = {
+    const options = {
         page,
         limit,
         sort: {$natural: -1},
     }
     // Try Catch the awaited promise to handle the error
     try {
-        console.log("Query",query)
-        var Orders = await Order.paginate(query, options)
+        const Orders = await Order.paginate(query, options)
         // Return the Userd list that was retured by the mongoose promise
         return Orders;
 
@@ -27,11 +23,11 @@ exports.getOrders = async function (query, page, limit) {
     }
 }
 
-exports.getOrderById = async function (id) {
+export async function getOrderById (id: string) {
 
     // Try Catch the awaited promise to handle the error
     try {
-        var OrderResult = await Order.findById(id);
+        const OrderResult = await Order.findById(id);
         return OrderResult;
 
     } catch (e) {
@@ -41,14 +37,14 @@ exports.getOrderById = async function (id) {
     }
 }
 
-exports.createOrder = async function (order) {
-    var newOrder = new Order({
+export async function createOrder (order: Order) {
+    const newOrder = new Order({
         ...order,
     });
 
     try {
         // Saving the Order
-        var savedOrder = await newOrder.save();
+        const savedOrder = await newOrder.save();
         return savedOrder;
     } catch (e) {
         // return a Error message describing the reason
@@ -57,11 +53,11 @@ exports.createOrder = async function (order) {
     }
 }
 
-exports.updateOrderStatus = async function (ids, nuevoEstado) {
+export async function updateOrderStatus (ids: string[], nuevoEstado: string) {
 
     // Try Catch the awaited promise to handle the error
     try {
-        var OrderResult = await Order.updateMany(
+        const OrderResult = await Order.updateMany(
             {'_id': {$in: ids}},
             {estado: nuevoEstado}
         );

@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
-const OrderController = require('../controllers/orders.controller');
-var AdminAuthorization = require('../auth/admin_authorization');
+import express from 'express';
+import AdminAuthorization from '../auth/admin_authorization';
+import * as OrderController from '../controllers/orders.controller';
+const router = express.Router()
 
 // Rutas públicas
 router.post('/', OrderController.createOrder);
@@ -10,4 +10,4 @@ router.get('/', AdminAuthorization, OrderController.getOrders);
 router.get('/detail/:id', AdminAuthorization, OrderController.getOrderById);
 router.post('/update-status', AdminAuthorization, OrderController.updateOrderStatus);
 
-module.exports = router;
+export default router;

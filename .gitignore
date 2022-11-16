@@ -1,7 +1,8 @@
 #ignore node modules
 
-node_modules/*
-imagenes/*
+node_modules
+imagenes
 
 # ignore Local ENV File
-# .env  
+.env
+dist
