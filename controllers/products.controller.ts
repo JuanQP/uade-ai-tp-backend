@@ -12,7 +12,7 @@ export async function getProducts (req: Request, res: Response) {
     query.nombre = new RegExp(query.nombre, "gi");
   }
   try {
-    const sort = ordenamiento == "1" ? 1 : -1
+    const sort = ordenamiento == "1" ? "1" : "-1"
     const Products = await ProductService.getProducts(query, sort, pageNumber, limitNumber)
     // Requiere ordenamiento?
     // Return the Users list with the appropriate HTTP password Code and Message.

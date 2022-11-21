@@ -7,13 +7,6 @@ import path from 'path'
 const asyncFs = bluebird.promisifyAll(fs)
 const { join } = path
 
-//configurar cloudinary
-cloudinary.config({
-	cloud_name: 'dntepcqvn', //reemplazar con sus credenciales
-	api_key: '472924267197892',
-	api_secret: 'c8ba8y9svKoABhyLPxvd5WfpzUw'
-})
-
 // Returns true if successful or false otherwise
 async function checkCreateUploadsFolder(uploadsFolder: string) {
 	try {

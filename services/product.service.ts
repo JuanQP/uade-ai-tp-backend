@@ -1,8 +1,9 @@
 // Gettign the Newly created Mongoose Model we just created
+import { Product as ProductType } from 'types';
 import Product, { ProductDocument } from '../models/Product.model';
 
 // Async function to get the User List
-export async function getProducts(query: any, sort: MongoDBSort, page: number, limit: number) {
+export async function getProducts(query: any, sort: "1" | "-1", page: number, limit: number) {
 
   // Options setup for the mongoose paginate
   const options = {
@@ -36,7 +37,7 @@ export async function getLatestProducts() {
 export async function getLatestSonido() {
   // Try Catch the awaited promise to handle the error
   try {
-    const Products = await Product.find({ categoria: 'Parlante' }).sort({ $natural: -1 }).limit(4);
+    const Products = await Product.find({ category: 'Speaker' }).sort({ $natural: -1 }).limit(4);
     return Products;
   } catch (e) {
     throw Error('Error while retrieving Products');
@@ -83,7 +84,7 @@ export async function updateProduct(product: ProductDocument) {
   }
 }
 
-export async function createProduct(product: Product) {
+export async function createProduct(product: ProductType) {
   try {
     // Saving the Product
     const newProduct = new Product(product);
@@ -99,12 +100,12 @@ export async function getFilters() {
 
   // Try Catch the awaited promise to handle the error
   try {
-    const marcas = await Product.distinct('marca');
-    const categorias = await Product.distinct('categoria');
+    const brands = await Product.distinct('brand');
+    const categories = await Product.distinct('category');
     // Return the Userd list that was retured by the mongoose promise
     return {
-      marcas,
-      categorias,
+      brands,
+      categories,
     };
 
   } catch (e) {

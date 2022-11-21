@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import User, { UserDocument } from '../models/User.model'
-import { UserData } from '../types'
+import { User as UserType, UserData } from '../types'
 
 export async function getUsers(query: any, page: number, limit: number) {
   // Options setup for the mongoose paginate
@@ -58,7 +58,6 @@ export async function createUser(user: UserData) {
       cvv: 0,
     },
     isAdmin: false,
-    isGuest: false,
     avatar: '',
   });
 
@@ -109,7 +108,7 @@ export async function deleteUser(id: string) {
 }
 
 
-export async function loginUser(user: Pick<User, 'email' | 'password'>) {
+export async function loginUser(user: Pick<UserType, 'email' | 'password'>) {
 
   // Creating a new Mongoose Object by using the new keyword
   try {

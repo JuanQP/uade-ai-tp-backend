@@ -65,7 +65,7 @@ export async function createOrder(req: Request, res: Response) {
 
     if (productoActual.stock < p.quantity) {
       huboError = true;
-      errores.push(`El producto ${p.product.nombre} tiene ${productoActual.stock} unidades disponibles pero se intentó comprar ${p.quantity}.`);
+      errores.push(`El producto ${p.product.name} tiene ${productoActual.stock} unidades disponibles pero se intentó comprar ${p.quantity}.`);
     }
     // Actualizamos el stock pero todavía NO lo guardamos.
     productoActual.stock -= p.quantity;
@@ -77,11 +77,11 @@ export async function createOrder(req: Request, res: Response) {
   // Ahora si, creamos la orden...
   const newOrder = {
     buyOrder: buyOrder,
-    cantidad: buyOrder.products.map(p => p.quantity).reduce((a, b) => (a + b), 0),
-    fechacompra: moment().format("DD/MM/YYYY"),
-    fechaentrega: moment().add(2, "days").format("DD/MM/YYYY"),
-    total: buyOrder.products.map(p => p.quantity * p.product.precio).reduce((a, b) => (a + b), 0),
-    estado: 'Pendiente',
+    quantity: buyOrder.products.map(p => p.quantity).reduce((a, b) => (a + b), 0),
+    orderDate: moment().format("DD/MM/YYYY"),
+    deliveryDate: moment().add(2, "days").format("DD/MM/YYYY"),
+    total: buyOrder.products.map(p => p.quantity * p.product.price).reduce((a, b) => (a + b), 0),
+    status: 'Pendiente',
   }
   try {
     // Ahora sí updateamos los productos con el nuevo stock modificado.

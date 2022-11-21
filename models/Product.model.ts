@@ -1,30 +1,16 @@
 import mongoose from 'mongoose'
 import mongoosePaginate from 'mongoose-paginate'
-
-interface Product {
-  img: string
-  marca: string
-  modelo: string
-  peso: string
-  precio: number
-  stock: number
-  categoria: string
-  descripcion: string
-  interfaz: string
-  nombre: string
-}
+import { Product } from 'types'
 
 const ProductSchema = new mongoose.Schema({
-  img: String,
-  marca: String,
-  modelo: String,
-  peso: String,
-  precio: Number,
+  image: String,
+  brand: String,
+  productModel: String,
+  price: Number,
   stock: Number,
-  categoria: String,
-  descripcion: String,
-  interfaz: String,
-  nombre: String,
+  category: String,
+  description: String,
+  name: String,
 })
 
 export interface ProductDocument extends mongoose.Document, Product {}

@@ -1,31 +1,6 @@
 import mongoose from 'mongoose'
 import mongoosePaginate from 'mongoose-paginate'
-
-interface Address {
-  address1: string
-  province: string
-  city: string
-  zip: number
-}
-
-interface Payment {
-  cardName: string
-  cardNumber: string
-  expDate: string
-  cvv: number
-}
-
-interface User {
-  firstName: string,
-  lastName: string,
-  email: string,
-  password: string,
-  address: Address,
-  payment: Payment,
-  isAdmin: boolean,
-  isGuest: boolean,
-  avatar: string,
-}
+import { User } from 'types'
 
 
 const UserSchema = new mongoose.Schema({
@@ -34,7 +9,7 @@ const UserSchema = new mongoose.Schema({
   email: String,
   password: String,
   address: {
-    address1: { type: String },
+    address: { type: String },
     province: { type: String },
     city: { type: String },
     zip: { type: Number }
@@ -46,7 +21,6 @@ const UserSchema = new mongoose.Schema({
     cvv: { type: Number },
   },
   isAdmin: Boolean,
-  isGuest: Boolean,
   avatar: String,
 })
 
