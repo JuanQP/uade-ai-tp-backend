@@ -13,7 +13,6 @@ export async function getProducts(query: any, sort: "1" | "-1", page: number, li
   }
   // Try Catch the awaited promise to handle the error
   try {
-    console.log("Query", query)
     const Products = await Product.paginate(query, options)
     // Return the Userd list that was retured by the mongoose promise
     return Products;

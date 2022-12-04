@@ -7,9 +7,41 @@ export async function getProducts (req: Request, res: Response) {
   const pageNumber = req.query.page ? Number(req.query.page) : 1
   const limitNumber = req.query.limit ? Number(req.query.limit) : 8;
   const { page, limit, ordenamiento, ...rest } = req.query;
-  const query: any = { ...rest };
-  if (query.nombre) {
-    query.nombre = new RegExp(query.nombre, "gi");
+  let query: any = { ...rest };
+  if (query.search) {
+    const searchRegex = new RegExp(query.search, "gi")
+    query = {
+      $or: [
+        { name: searchRegex },
+        { category: searchRegex },
+        { brand: searchRegex },
+      ]
+    }
+  }
+  if(query.pmin) {
+    query.price = {
+      $gt: Number(query.pmin),
+    }
+    query.pmin = undefined
+  }
+  if(query.pmax) {
+    query.price = typeof query.price === "object" ? {
+      ...query.price,
+      $lt: Number(query.pmax),
+    } : {
+      $lt: Number(query.pmax),
+    }
+    query.pmax = undefined
+  }
+  if(query.brand) {
+    query.brand = {
+      $in: query.brand
+    }
+  }
+  if(query.category) {
+    query.category = {
+      $in: query.category
+    }
   }
   try {
     const sort = ordenamiento == "1" ? "1" : "-1"

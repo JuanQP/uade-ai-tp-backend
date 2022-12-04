@@ -6,6 +6,8 @@ import express from 'express'
 import logger from 'morgan'
 import path from 'path'
 import indexRouter from './routes'
+import brandsRouter from './routes/brands'
+import categoriesRouter from './routes/categories'
 import ordersRouter from './routes/orders'
 import productsRouter from './routes/products'
 import usersRouter from './routes/users'
@@ -25,14 +27,16 @@ app.use(express.urlencoded({
 //aplico cors
 app.use(cors());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 //Indico las rutas de los endpoint
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/products', productsRouter);
-app.use('/orders', ordersRouter);
-app.use('/utils/',utilRouter);
+app.use('/api/', indexRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/products', productsRouter);
+app.use('/api/orders', ordersRouter);
+app.use('/api/utils/', utilRouter);
+app.use('/api/categories/', categoriesRouter);
+app.use('/api/brands/', brandsRouter);
 
 //Database connection --
 const mongoose = require('mongoose')
