@@ -37,17 +37,17 @@ const OrderSchema = new mongoose.Schema({
       address1: String,
       province: String,
       city: String,
-      zip: Number,
+      zip: String,
     },
     payment: {
       cardName: String,
       cardNumber: String,
       expDate: String,
-      cvv: Number,
+      cvv: String,
       address1: String,
       province: String,
       city: String,
-      zip: Number
+      zip: String
     },
     products: [{
       product: {

@@ -12,13 +12,13 @@ const UserSchema = new mongoose.Schema({
     address: { type: String },
     province: { type: String },
     city: { type: String },
-    zip: { type: Number }
+    zip: { type: String }
   },
   payment: {
     cardName: { type: String },
     cardNumber: { type: String },
     expDate: { type: String },
-    cvv: { type: Number },
+    cvv: { type: String },
   },
   isAdmin: Boolean,
   avatar: String,

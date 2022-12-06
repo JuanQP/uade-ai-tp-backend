@@ -41,25 +41,25 @@ export interface Address {
   address1: string
   province: string
   city: string
-  zip: number
+  zip: string
 }
 
 export interface CardInfo {
   cardName: string
   cardNumber: string
   expDate: string
-  cvv: number
+  cvv: string
 }
 
 export interface Payment {
   cardName: string,
   cardNumber: string,
   expDate: string,
-  cvv: number,
+  cvv: string,
   address1: string,
   province: string,
   city: string,
-  zip: number
+  zip: string
 }
 
 export interface User {
