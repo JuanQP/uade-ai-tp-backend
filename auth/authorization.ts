@@ -3,7 +3,8 @@ import jwt from 'jsonwebtoken'
 
 export default function authorization(req: Request, res: Response, next: NextFunction) {
 
-  const token = req.headers['x-access-token']
+  const token = req.headers['x-access-token'] ?? req.cookies['_auth']
+
   try {
     const sec = process.env.SECRET
     if(typeof token !== "string" || typeof sec !== "string") {
