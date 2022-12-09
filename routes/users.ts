@@ -11,7 +11,7 @@ router.post('/login', UserController.loginUser);
 // Rutas con login
 router.get('/orders', Authorization, OrderController.getOrdersByUser);
 router.get('/detail/', Authorization, UserController.getActualUser);
-router.put('/detail', Authorization, UserController.updateActualUser);
+router.patch('/detail', Authorization, UserController.updateActualUser);
 // Rutas para admin
 router.get('/', AdminAuthorization, UserController.getUsers);
 router.put('/', AdminAuthorization, UserController.updateUser);

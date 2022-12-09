@@ -105,19 +105,11 @@ export async function updateUser(req: Request, res: Response) {
 
 export async function updateActualUser(req: Request, res: Response) {
 
-  // Id is necessary for the update
-  if (!req.body._id) {
-    return res.status(400).json({ status: 400., message: "ID must be present" })
-  }
-  if (req.body._id != req.userId) {
-    return res.status(400).json({ status: 400., message: "Solo podés actualizar los datos del usuario actual!" });
-  }
-
-  const User = {
-    ...req.body,
-  }
   try {
-    const updatedUser = await UserService.updateUser(User)
+    const updatedUser = await UserService.updateUser({
+      _id: req.userId,
+      ...req.body,
+    })
     return res.status(200).json({ status: 200, data: updatedUser, message: "Usuario modificado." })
   } catch (e: any) {
     return res.status(400).json({ status: 400., message: e.message })
