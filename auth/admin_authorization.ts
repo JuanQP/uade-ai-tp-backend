@@ -11,6 +11,7 @@ export default function authorization(req: Request, res: Response, next: NextFun
     const decoded = jwt.verify(token, sec) as jwt.JwtPayload
     req.userId = decoded.id
     req.email = decoded.email
+    req.isAdmin = !!decoded.isAdmin
     if (!decoded.isAdmin) {
       throw new Error("Esta URL solo puede ser usada por un Administrador.")
     }

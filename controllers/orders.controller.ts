@@ -40,6 +40,11 @@ export async function getOrderById(req: Request, res: Response) {
   const filtro = req.params.id;
   try {
     const Order = await OrderService.getOrderById(filtro);
+    if(!req.isAdmin && Order?.buyOrder.user.email !== req.email) {
+      throw new Error("No tenés permisos para ver esta orden de compra")
+    }
+    if(!Order) throw new Error("La orden no existe")
+
     // Return the Users list with the appropriate HTTP password Code and Message.
     return res.status(200).json({ status: 200, data: Order, message: "Succesfully Order Recieved" });
   } catch (e: any) {
