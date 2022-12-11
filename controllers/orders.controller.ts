@@ -104,13 +104,13 @@ export async function createOrder(req: Request, res: Response) {
 export async function updateOrderStatus(req: Request, res: Response) {
 
   // Id and status is necessary for the update
-  if (!req.body.ids || !req.body.estado) {
+  if (!req.body.ids || !req.body.status) {
     return res.status(400).json({ status: 400., message: "No se especificó los IDs o el nuevo Estado." });
   }
 
   try {
-    const updatedOrders = await OrderService.updateOrderStatus(req.body.ids, req.body.estado)
-    return res.status(200).json({ status: 200, message: `Se modificaron ${updatedOrders.n} órdenes con el nuevo estado ${req.body.estado}.` })
+    const updatedOrders = await OrderService.updateOrderStatus(req.body.ids, req.body.status)
+    return res.status(200).json({ status: 200, message: `Se modificaron ${updatedOrders.n} órdenes con el nuevo estado ${req.body.status}.` })
   } catch (e: any) {
     return res.status(400).json({ status: 400., message: e.message })
   }

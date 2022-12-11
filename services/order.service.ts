@@ -59,7 +59,7 @@ export async function updateOrderStatus (ids: string[], nuevoEstado: string) {
     try {
         const OrderResult = await Order.updateMany(
             {'_id': {$in: ids}},
-            {estado: nuevoEstado}
+            {status: nuevoEstado}
         );
         return OrderResult;
 
