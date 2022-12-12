@@ -5,7 +5,7 @@ export async function getProducts (req: Request, res: Response) {
 
   // Check the existence of the query parameters, If doesn't exists assign a default value
   const pageNumber = req.query.page ? Number(req.query.page) : 1
-  const limitNumber = req.query.limit ? Number(req.query.limit) : 8;
+  const limitNumber = req.query.limit ? Number(req.query.limit) : 20;
   const { page, limit, ordenamiento, ...rest } = req.query;
   let query: any = { ...rest };
   if (query.search) {

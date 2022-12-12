@@ -5,7 +5,8 @@
     "start": "node dist/app.js",
     "build": "npm run tsc",
     "dev": "nodemon app.ts",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "db:seed": "ts-node seeds.ts"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

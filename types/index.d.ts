@@ -71,8 +71,18 @@ export interface User {
   address: Address,
   payment: CardInfo,
   isAdmin: boolean,
-  isGuest: boolean,
   avatar: string,
+}
+
+export type Brand = {
+  description: string;
+  imageSrc: string;
+}
+
+export type Category = {
+  description: string;
+  imageSrc: string;
+
 }
 
 
