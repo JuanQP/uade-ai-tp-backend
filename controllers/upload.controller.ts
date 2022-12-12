@@ -156,3 +156,15 @@ export async function uploadAvatar (req: Request, res: Response, _next: NextFunc
 		res.status(400).send({ ok: false, message: error.message })
 	}
 }
+
+export async function uploadProductImage (req: Request, res: Response) {
+	res.status(201).send({
+		url: `/public/products/${req.file?.filename}`,
+	})
+}
+
+export async function uploadAvatarImage (req: Request, res: Response) {
+	res.status(201).send({
+		url: `/public/avatars/${req.file?.filename}`,
+	})
+}
