@@ -8,7 +8,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=mongo
     ports:
       - "27017:27017"
-  web:
+  backend:
     image: uade-ai-tp-backend:1.0.0
     restart: always
     build:
@@ -18,7 +18,7 @@ services:
       - DATABASE_URL=mongodb://mongo:mongo@db:27017
       - PORT=4000
       - UPLOAD_DIR=imagenes/
-      - NODE_ENV=Development
+      - NODE_ENV=Production # To use '../public' as public folder
     ports:
       - "4000:4000"
     depends_on:

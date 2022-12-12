@@ -27,7 +27,9 @@ app.use(express.urlencoded({
 //aplico cors
 app.use(cors());
 app.use(cookieParser());
-app.use('/public', express.static(path.join(__dirname, 'public')));
+
+const publicFolderPath = process.env.NODE_ENV === "Production" ? "../public" : "public"
+app.use('/public', express.static(path.join(__dirname, publicFolderPath)));
 
 //Indico las rutas de los endpoint
 app.use('/api/', indexRouter);

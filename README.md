@@ -1,19 +1,30 @@
 # UADE - Aplicaciones Interactivas - TP
 
+> This project is the backend of this frontend project: [uade-ai-tp-backend](https://github.com/JuanQP/uade-ai-tp)
+
 University project for a PC products store
 
-Members of the team:
-
-* **FIORDILINO**, Martín Alberto
-* **QUINTEROS PARADA**, Juan Ignacio
+This is a remake of an old university project. I've just added typescript and some minor changes to remake the frontend.
 
 ## I just want to see the app
 
-Everything settled up with:
+If you want to run this app with example data, first clone this repo and then run:
 
 ```sh
-docker-compose up
+docker-compose up --build
 ```
+
+Then, in another terminal, when the database is up, run:
+
+```sh
+docker-compose exec backend /bin/sh -c "npm run db:seed"
+```
+
+That's all. **Next step is to run frontend**, which is just two commands as well. [Click here to see that repo](https://github.com/JuanQP/uade-ai-tp).
+
+### Users
+
+Now you can login with the client user `inewton@uade.edu.ar` or admin user `juanquinteros@uade.edu.ar`. In both cases the password is `A$d12345`.
 
 ## Development
 
