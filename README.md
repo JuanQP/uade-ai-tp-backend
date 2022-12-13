@@ -8,19 +8,24 @@ This is a remake of an old university project. I've just added typescript and so
 
 ## I just want to see the app
 
-If you want to run this app with example data, first clone this repo and then run:
+> **First step is to build frontend**, don't worry, is easy. Just run the command mentioned in the frontend repo. [Click here to see that repo](https://github.com/JuanQP/uade-ai-tp). Go to the section *I just want to see the app*.
+
+Once you have built the frontend, run in this repo:
 
 ```sh
-docker-compose up --build
-```
-
-Then, in another terminal, when the database is up, run:
-
-```sh
+docker-compose up -d
 docker-compose exec backend /bin/sh -c "npm run db:seed"
 ```
 
-That's all. **Next step is to run frontend**, which is just two commands as well. [Click here to see that repo](https://github.com/JuanQP/uade-ai-tp).
+The first command start both the backend and the db. With the second command you will populate the DB with example data.
+
+If you want to stop the app just run:
+
+```
+docker-compose stop
+```
+
+That's all. Now you can navigate the app in `http://localhost:4000/` with this credentials 👇
 
 ### Users
 
@@ -28,11 +33,13 @@ Now you can login with the client user `inewton@uade.edu.ar` or admin user `juan
 
 ## Development
 
-In development is necessary to have a `DATABASE_URL` env variable set to connect to a MongoDB, then you can just run it with:
+TL;DR: Just run:
 
 ```sh
 npm run dev
 ```
+
+Longer explanation: In development is necessary to have a `DATABASE_URL` env variable set to connect to a MongoDB, then you can just run it with the above command. In dev mode, this server won't serve the react app. You should run the frontend with `npm run dev`.
 
 ## Deploy
 

@@ -40,6 +40,16 @@ app.use('/api/utils/', utilRouter);
 app.use('/api/categories/', categoriesRouter);
 app.use('/api/brands/', brandsRouter);
 
+// In production this server will also serve the built react app
+if(process.env.NODE_ENV === "Production") {
+  // Have Node serve the files for our built React app
+  app.use(express.static(path.resolve(__dirname, '../frontend-dist')));
+  // All other GET requests not handled before will return our React app
+  app.get('*', (_req, res) => {
+    res.sendFile(path.resolve(__dirname, '../frontend-dist/index.html'));
+  });
+}
+
 //Database connection --
 const mongoose = require('mongoose')
 mongoose.Promise = bluebird;

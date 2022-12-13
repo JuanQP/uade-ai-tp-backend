@@ -2,6 +2,7 @@
 
 node_modules
 imagenes
+frontend-dist
 
 # ignore Local ENV File
 .env
