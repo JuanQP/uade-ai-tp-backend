@@ -24,8 +24,6 @@ const upload = multer({ storage })
 router.get('/', function(_req, res, _next) {
   res.send('Utils listing')
 })
-router.post('/upload', Authorization, UploadController.uploadFiles)
-router.post('/avatar-upload', Authorization, UploadController.uploadAvatar)
 router.post('/product-image-upload', Authorization, upload.single('image'), UploadController.uploadProductImage)
 router.post('/avatar-image-upload', Authorization, upload.single('image'), UploadController.uploadAvatarImage)
 
